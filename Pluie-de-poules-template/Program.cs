@@ -21,6 +21,7 @@
 
             Console.SetCursorPosition(randomColumn, cursorPosY);
 
+            // loop au travers chaque poulet
             while (Console.CursorLeft >= randomColumn && Console.CursorTop <= sol) 
             {
                 Console.Clear();
@@ -28,6 +29,7 @@
                 Console.SetCursorPosition(randomColumn, cursorPosY);
                 Console.Write("🐔");
 
+                // loop pour descendre le poulet
                 foreach ((int, int) poulet in listePoulets)
                 {
                     Console.SetCursorPosition(poulet.Item1, poulet.Item2);
@@ -38,7 +40,6 @@
             }
 
             listePoulets.Add((randomColumn, sol + 1));
-            nbrPoulets++;
         }
     }
 }
