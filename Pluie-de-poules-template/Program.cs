@@ -4,28 +4,41 @@
 
     static void Main(string[] args)
     {
-        // Point d'entrée du programme
-
-        //Hauteur de la fenêtre console en nombre de lignes
-        Console.WindowHeight
-
+        // 1 au dessus du vrai sol
         int sol = Console.WindowHeight - 2;
+        int posMin = 0;
+        List<(int, int)> listePoulets = new List<(int, int)>();
+        Random random = new Random();
 
-        //Positionner le curseur sur une position spécifique dans la console:
-        Console.SetCursorPosition(x, y);
-        //x = la colonne(de gauche à droite, commence à 0).
-        //y = la ligne(de haut en bas, commence à 0).
-
-        // Configuration pour afficher les emojis
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-        Random random = new Random(); // Une seule instance de Random pour éviter les répétitions
-        random.Next(posMin, posMax + 1);
+        // max poulet
+        for (int i = 0; i <= 10; i++)
+        {
+            int posMax = Console.WindowWidth - 1;
+            int randomColumn = random.Next(posMin, posMax);
+            int cursorPosY = 0;
 
-        Thread.Sleep(50);
+            Console.SetCursorPosition(randomColumn, cursorPosY);
 
-        // Effacer la console 
-        Console.Clear();
+            while (Console.CursorLeft >= randomColumn && Console.CursorTop <= sol) 
+            {
+                Console.Clear();
+                cursorPosY++;
+                Console.SetCursorPosition(randomColumn, cursorPosY);
+                Console.Write("🐔");
 
+                foreach ((int, int) poulet in listePoulets)
+                {
+                    Console.SetCursorPosition(poulet.Item1, poulet.Item2);
+                    Console.Write("🐔");
+                } 
+
+                Thread.Sleep(100);
+            }
+
+            listePoulets.Add((randomColumn, sol + 1));
+            nbrPoulets++;
+        }
     }
 }
