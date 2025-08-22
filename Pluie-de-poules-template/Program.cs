@@ -4,10 +4,12 @@
 
     static void Main(string[] args)
     {
+
+
         // 1 au dessus du vrai sol
         int sol = Console.WindowHeight - 2;
         int posMin = 0;
-        List<(int, int)> listePoulets = new List<(int, int)>();
+        List<int> listePouletsSol = new List<int>();
         Random random = new Random();
 
         Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -22,7 +24,7 @@
             Console.SetCursorPosition(randomColumn, cursorPosY);
 
             // loop au travers chaque poulet
-            while (Console.CursorLeft >= randomColumn && Console.CursorTop <= sol) 
+            while (cursorPosY <= sol)
             {
                 Console.Clear();
                 cursorPosY++;
@@ -30,16 +32,16 @@
                 Console.Write("🐔");
 
                 // loop pour descendre le poulet
-                foreach ((int, int) poulet in listePoulets)
+                foreach (int poulet in listePouletsSol)
                 {
-                    Console.SetCursorPosition(poulet.Item1, poulet.Item2);
+                    Console.SetCursorPosition(poulet, sol + 1);
                     Console.Write("🐔");
-                } 
+                }
 
                 Thread.Sleep(100);
             }
 
-            listePoulets.Add((randomColumn, sol + 1));
+            listePouletsSol.Add(randomColumn);
         }
     }
 }
